@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESC102 – Design Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Earthy, Neutral, Green & Brown Theme */
+  --bg: #F9F8F4;        /* Warm off-white */
+  --bg2: #EFECE5;       /* Light oat/beige */
+  --border: #DCD6C8;    /* Soft beige border */
+  --border2: #C5BCAA;
+  
+  --stone1: #EBE5D9; 
+  --stone2: #C4BBAC; 
+  --stone3: #7D7361;    /* Medium earthy grey-brown */
+  --stone4: #5C5446; 
+  --stone5: #3B352B;    /* Dark brown text */
+  --stone6: #24201A;    /* Very dark brown/almost black */
+  
+  --accent: #4A6342;    /* Forest Green */
+  --accent-l: #839D79;  /* Light Green */
+  --accent-p: #E8EBE3;  /* Very pale green background */
+  
+  --frame-c: #4A6342; --frame-bg: #E8EBE3; --frame-b: #B6C8AE;
+  --div-c: #8B5A2B;   --div-bg: #F7EFE8; --div-b: #D3B396;
+  --con-c: #3E5A68;   --con-bg: #EAF1F4; --con-b: #A4BECD;
+  --rep-c: #6D4C41;   --rep-bg: #F2EAE7; --rep-b: #C8AFA6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--stone5); font-size: 16px; line-height: 1.75; }
+
+/* Navigation */
+.topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(249, 248, 244, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 60px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+.topnav-logo { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone4); font-weight: 500;}
+.topnav-pages { display: flex; gap: 0.5rem; }
+.topnav-pages button { background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--stone3); padding: 0 1.2rem; height: 60px; letter-spacing: 0.03em; border-bottom: 2px solid transparent; transition: all 0.3s ease; white-space: nowrap; }
+.topnav-pages button:hover { color: var(--accent); background: rgba(74, 99, 66, 0.05); }
+.topnav-pages button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+.page { display: none; padding-top: 60px; min-height: 100vh; }
+.page.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Hero Section */
+.hero { padding: 90px 0 70px; background: linear-gradient(160deg, var(--bg2) 0%, var(--bg) 80%); border-bottom: 1px solid var(--border); text-align: center; }
+.hero-tag { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 400; color: var(--stone6); line-height: 1.15; margin-bottom: 1rem; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub { font-size: 1.05rem; color: var(--stone3); max-width: 540px; margin: 0 auto 2.5rem; }
+.hero-chips { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+.chip { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone4); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 20px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+.section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+
+/* Section Headers */
+.sh { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+.sh-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--bg); background: var(--accent); padding: 0.3rem 0.7rem; border-radius: 4px; }
+.sh h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; color: var(--stone6);}
+
+/* Content Blocks */
+.fb { position: relative; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.2s ease; }
+.fb:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
+.fb::before { content: attr(data-label); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); position: absolute; top: -0.6rem; left: 1.5rem; background: var(--accent-p); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--accent-l); }
+.fb p { color: var(--stone4); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.2rem; }
+.fb p:last-child { margin-bottom: 0; }
+
+/* Image Integration */
+.map-image-container { text-align: center; margin: 2rem 0; padding: 1rem; background: var(--bg2); border-radius: 8px; border: 1px solid var(--border); }
+.map-image-container img { max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); mix-blend-mode: multiply; }
+.image-caption { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--stone3); margin-top: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+@media(max-width: 680px) { .g2 { grid-template-columns: 1fr; } }
+
+.img-ph { border: 2px dashed var(--border2); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; background: var(--bg2); color: var(--stone3); font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 1.5rem; transition: all 0.3s; }
+.img-ph:hover { background: white; border-color: var(--accent-l); color: var(--accent); }
+.img-ph.tall { min-height: 250px; }
+.img-ph.med { min-height: 180px; }
+
+.note { background: var(--div-bg); border: 1px solid var(--div-b); border-left: 4px solid var(--div-c); border-radius: 4px; padding: 1.2rem 1.5rem; margin-bottom: 2.5rem; font-size: 0.9rem; color: var(--stone5); line-height: 1.6; }
+.note strong { color: var(--div-c); font-weight: 600; }
+
+.badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; border: 1px solid; font-weight: 500; }
+.b-frame { color: var(--frame-c); border-color: var(--frame-b); background: var(--frame-bg); }
+.b-diverge { color: var(--div-c); border-color: var(--div-b); background: var(--div-bg); }
+.b-converge { color: var(--con-c); border-color: var(--con-b); background: var(--con-bg); }
+.b-represent { color: var(--rep-c); border-color: var(--rep-b); background: var(--rep-bg); }
+
+/* Project Banners */
+.proj-banner { background: var(--stone6); color: var(--bg); padding: 4rem 2rem 3rem; border-bottom: 4px solid var(--accent); text-align: center; }
+.proj-banner .tag { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-l); margin-bottom: 1rem; }
+.proj-banner h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; margin-bottom: 1rem; color: white; }
+.proj-banner .desc { font-size: 1rem; color: var(--stone2); max-width: 650px; margin: 0 auto; line-height: 1.6;}
+.proj-banner .badges { display: flex; gap: 0.6rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+
+/* CTMF Framework styles */
+.ctmf-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 3rem; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.ctmf-header { background: var(--bg2); padding: 1.8rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ctmf-header-left { flex: 1; }
+.ctmf-header-left .ctmf-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; font-weight: 500;}
+.ctmf-header-left h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--stone6); }
+.ctmf-header-left .ctmf-sub { font-size: 0.95rem; color: var(--stone4); margin-top: 0.4rem; font-style: italic; }
+.ctmf-body { padding: 2rem; }
+.ctmf-body > * + * { margin-top: 2rem; }
+
+.what-is { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.8rem; }
+.what-is .wh-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone3); margin-bottom: 1rem; font-weight: 500;}
+.what-is p { color: var(--stone4); font-size: 0.95rem; line-height: 1.8; }
+
+.role-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.8rem; }
+.role-block .rb-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--stone6); margin-bottom: 1rem; }
+.role-block p { color: var(--stone4); font-size: 0.95rem; line-height: 1.8; }
+
+.adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+@media(max-width: 768px) { .adv-grid { grid-template-columns: 1fr; } }
+.adv-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.adv-card .adv-label { font-size: 0.9rem; font-weight: 600; color: var(--stone6); margin-bottom: 0.6rem; }
+.adv-card p { color: var(--stone4); font-size: 0.85rem; line-height: 1.7; margin-top: 0.5rem; }
+
+.lim-list { display: flex; flex-direction: column; gap: 1rem; }
+.lim-item { background: white; border: 1px solid var(--border); border-left: 4px solid #8B5A2B; border-radius: 0 8px 8px 0; padding: 1.2rem 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.lim-item .lim-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: #8B5A2B; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 500;}
+.lim-item .lim-title { font-size: 0.95rem; font-weight: 600; color: var(--stone6); margin-bottom: 0.5rem; }
+.lim-item p { color: var(--stone4); font-size: 0.9rem; line-height: 1.7; }
+
+.learning-box { background: var(--accent-p); border: 1px solid var(--accent-l); border-radius: 8px; padding: 1.8rem; }
+.learning-box .lb-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); margin-bottom: 0.8rem; }
+.learning-box p { color: var(--stone5); font-size: 0.95rem; line-height: 1.8; }
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;}
+caption { caption-side: top; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--stone3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+th { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone5); text-align: left; padding: 1rem 1.2rem; background: var(--bg2); border-bottom: 1px solid var(--border); }
+td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); color: var(--stone4); background: white;}
+tr:last-child td { border-bottom: none; }
+
+/* Table of Contents */
+.toc { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.toc-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; font-weight: 600;}
+.toc ol { padding-left: 1.5rem; color: var(--stone4);}
+.toc li { margin-bottom: 0.6rem; font-size: 0.95rem;}
+.toc a { color: var(--stone5); text-decoration: none; transition: color 0.2s; border-bottom: 1px dotted var(--border2);}
+.toc a:hover { color: var(--accent); border-bottom-style: solid;}
+
+.divider { width: 60px; height: 3px; background: var(--accent); border-radius: 3px; margin: 3rem auto; }
+
+.ref-item { font-size: 0.9rem; color: var(--stone4); padding: 1rem 0; border-bottom: 1px solid var(--border); line-height: 1.6;}
+.ref-item:last-child { border-bottom: none; }
+
+footer { background: var(--stone6); color: var(--stone2); text-align: center; padding: 2.5rem; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; }
+.pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+@media(max-width: 700px) { .pos-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-logo">ESC102 · Design Portfolio</div>
+  <div class="topnav-pages">
+    <button class="active" onclick="showPage('home')">Home</button>
+    <button onclick="showPage('p1')">Praxis I</button>
+    <button onclick="showPage('p2')">CIV102</button>
+    <button onclick="showPage('p3')">Praxis II</button>
+    <button onclick="showPage('refs')">References</button>
+  </div>
+</nav>
+
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-tag">Engineering Science · Praxis II</div>
+    <h1>Student Engineer<br><em>Design Portfolio</em></h1>
+    <div class="hero-chips">
+      <span class="chip">Jessica Torkos</span>
+      <span class="chip">April 2026</span>
+    </div>
+  </div>
+  
+  <div class="wrap">
+    <div class="section">
+      <div class="sh"><span class="sh-num">00</span><h2>Position in Context</h2></div>
+      
+      <div class="fb" data-label="Position Statement">
+        <p><strong>Welcome to My Map of Engineering Design</strong></p>
+        <p>My name is Jessica, and my position as an engineering designer is defined by a guiding belief: being authentically human is my most powerful tool in solving complex problems. Embracing the flaws and unique experiences of a lifelong learner is precisely what makes my approach to engineering design different. To better understand this approach, refer to Figure 1 as I take you on a journey through a map of my experiences.</p>
+        
+        <div class="map-image-container">
+            <img src="map.png" alt="Hand-drawn map of Jessica's Land of Engineering Design showing various metaphorical geographic features.">
+            <div class="image-caption">Figure 1: Jessica's Land of Engineering Design</div>
+        </div>
+        
+        <p>At the start of my engineering education, my approach was highly individualistic. Most of my previous experiences were built on personal grit and mental endurance. I viewed core subjects, such as complex mathematics and hard sciences, as Theoretical Peaks that I could climb and overcome as long as I persisted. This resilience was anchored by my Black Belt Bridge, forged through thirteen years of martial arts training. This training taught me that I could conquer challenges through hard work, instilling the discipline to "stay in the fight" when a problem became difficult.</p>
+        <p>However, after starting Engineering Science this year, I learned that even with this resilience, individual effort doesn't always guarantee a certain return. There were times when, despite exhausting myself studying for days straight, I still did not achieve the results I wanted. This new experience taught me that even with persistence, things don’t always go to plan—and that’s okay. The focus should not be on the final product, but the journey along the way. I have also learned that it is okay to seek help and ask for support from friends and mentors to help make this climb up the mountain.</p>
+        <p>During this phase, I also learned to navigate the Cave of Fear and the Mines of Research. Inspired by Brené Brown's Dare to Lead, I realized that choosing courage over comfort—having the vulnerability to rumble with uncertainty and admit what I don’t know—allows for more authentic design. Rather than trying to invent solutions from thin air, I learned to explore the mines of existing research, extracting and refining historical and scientific precedents for the modern world.</p>
+        <p>As I gained more design experience this term, my approach underwent a fundamental shift: I realized that engineering is not a solitary race. I grew immensely through team projects where I needed to collaborate and trust others to do their parts, learning that the best designs stem from collective effort and diverse perspectives. Moving through Echo Canyon, I reflect on my years singing in a choir. Just as creating beautiful music requires listening and adjusting your voice to harmonize with others, engineering design requires iterating and incorporating diverse perspectives to create a resonant solution. Design is best when you adjust your sound with your team: sometimes you need to sing louder and take the lead, while other times, you must lower your voice to let your teammates shine.</p>
+        <p>This realization led me to intentionally take the longer path through the Forest of Perspective. By working on projects that directly impact a community, I learned to work with instead of for the community. I shifted from viewing people as "users" to be optimized, to recognizing them as unique humans whose lived experiences must be fully understood. I learned that the best engineers do not observe a community from a distance; they embed themselves within it.</p>
+        <p>Today, my design approach is firmly centered in the Village of Teamwork. I operate with an abundance mindset, recognizing that individual talent is not enough. By relying on and contributing to a network of peers, I ensure that my designs are not limited by my own biases, but are instead strengthened by the diverse perspectives of my community.</p>
+        <p>As you look to the edge of my map, you will notice there is no final 'X.' Instead, my journey is guided by a constant Horizon of Alleviation. My compass is set toward the biomedical industry, with an aspiration to develop technologies that alleviate pain and solve pressing healthcare issues. Using the discipline of the peaks, the courage of the cave, and the collaborative power of the village, I approach engineering design as a human student, striving to build solutions that truly serve.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sh"><span class="sh-num">01</span><h2>Introduction</h2></div>
+      <div class="fb" data-label="Purpose & Navigation">
+        <p>This portfolio reflects on my first year in Engineering Science, primarily on my design experiences with the Praxis I, CIV102 and Praxis II projects. My position—being authentically human is my most powerful tool in design–will shape this reflection. Rather than focusing solely on the final product or the "X" on the map, this portfolio highlights the journey itself—the design process, decisions and learning experiences.</p>
+        <p>Three projects are considered in this portfolio: the Falling Broom Splartz from Praxis I, the Civ Bridge from CIV102, and the Shark Pouch Community Project from Praxis II. Each project is structured to give readers enough background to easily navigate its context, regardless of their familiarity with the specific coursework. My goal is to explore why each design decision was made, what worked for the project, what fell short, how I navigated through challenges, and how my engineering design position was impacted.</p>
+        <p>For each project, I analyze the Concepts, Tools, Models, and Frameworks (CTMFs) I utilized to navigate the Frame, Diverge, Converge, and Represent phases of the design process. I assess each tool to see its effectiveness and limitations, which I note for future use.</p>
+        <p>This portfolio will serve as a staple for how I currently view the engineering design process, how I think and collaborate on projects. It is also a reminder of key CTMFs that I have learned throughout Praxis I and Praxis II. This portfolio will be a resource I can revisit as I work through design projects, whether that be through student design teams or professional opportunities, and hope to add to as I grow and build more experiences.</p>
+      </div>
+
+      <div class="toc">
+        <div class="toc-title">Table of Contents</div>
+        <ol style="list-style: none; padding-left: 0;">
+          <li><a href="#" onclick="showPage('home');return false;">1. Position in Context</a></li>
+          <li><a href="#" onclick="showPage('p1');return false;">2. Praxis I Project</a>
+            <ol style="list-style: none; padding-left: 1.5rem; margin-top: 0.4rem;">
+              <li><a href="#" onclick="showPage('p1');return false;">2.1 Project Summary</a></li>
+              <li><a href="#" onclick="showPage('p1');return false;">2.2 CTMF 1 — Converging with the Perry Model and a Critical Metric</a></li>
+              <li><a href="#" onclick="showPage('p1');return false;">2.3 CTMF 2 — Diverging with the Lotus Blossom</a></li>
+              <li><a href="#" onclick="showPage('p1');return false;">2.4 CTMF 3 — Framing with Codes and Standards</a></li>
+            </ol>
+          </li>
+          <li><a href="#" onclick="showPage('p2');return false;">3. CIV102 Bridge Project</a>
+            <ol style="list-style: none; padding-left: 1.5rem; margin-top: 0.4rem;">
+              <li><a href="#" onclick="showPage('p2');return false;">3.1 Project Summary</a></li>
+              <li><a href="#" onclick="showPage('p2');return false;">3.2 CTMF 4 — Representing with Iterative Engineering Drawings</a></li>
+              <li><a href="#" onclick="showPage('p2');return false;">3.3 CTMF 5 — Diverging with Reference Designs</a></li>
+              <li><a href="#" onclick="showPage('p2');return false;">3.4 CTMF 6 — Converging with Mathematical Modeling (Code)</a></li>
+            </ol>
+          </li>
+          <li><a href="#" onclick="showPage('p3');return false;">4. Praxis II Project</a>
+            <ol style="list-style: none; padding-left: 1.5rem; margin-top: 0.4rem;">
+              <li><a href="#" onclick="showPage('p3');return false;">4.1 Project Summary</a></li>
+              <li><a href="#" onclick="showPage('p3');return false;">4.2 CTMF 7 — Diverging with Biomimicry</a></li>
+              <li><a href="#" onclick="showPage('p3');return false;">4.3 CTMF 8 — Reframing with the Morphological Chart</a></li>
+              <li><a href="#" onclick="showPage('p3');return false;">4.4 CTMF 9 — Progressive Fidelity Prototyping</a></li>
+            </ol>
+          </li>
+          <li><a href="#" onclick="showPage('refs');return false;">5. References</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <footer>UofT EngSci Praxis II · Jessica · 2026</footer>
+</div>
+ 
+<div id="p1" class="page">
+  <div class="proj-banner">
+    <div class="tag">Project 01 · ESC101 · Fall 2025</div>
+    <h1>Praxis I Project</h1>
+  </div>
+  <div class="wrap">
+    <div class="section">
+      <div class="sh"><span class="sh-num">2.1</span><h2>Project Summary</h2></div>
+      
+      <div class="g2">
+        <div class="fb" data-label="The Opportunity">
+          <p>When individuals temporarily rest a hand-held broom (HHB) against a wall, it is prone to tipping due to its small base, uneven bristles, and long slender handle. Once the broom falls, the user must go through an inconvenient five-step process to retrieve it: bend over, grasp the broom, lift it, stand up, and rotate it.</p>
+          <p>Engineering Science students required a solution that prioritizes keeping the broom upright anywhere in a room. The design needed to eliminate the need to bend down by allowing retrieval from a neutral body position.</p>
+        </div>
+        <div class="fb" data-label="The Solution">
+          <p>Our team recommended a moveable suction cup design that secures the broom to the floor when not in use. The design uses a foot-actuated handle to deploy the suction cup over the broom bristles. This mechanism creates a firm seal with the floor, such as white oak hardwood flooring, allowing the broom to be held upright.</p>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-bottom:2.5rem;">
+        <div style="text-align: center;">
+            <img src="broom.png" alt="Broom Problem Context" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div class="image-caption" style="text-align: center;">Figure 2: The Falling Broom Problem</div>
+        </div>
+        <div style="text-align: center;">
+            <img src="dim.png" alt="Broom Suction Cup Dimensions" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div class="image-caption" style="text-align: center;">Figure 3: Dimensions of the Suction Cup Solution</div>
+        </div>
+      </div>
+
+      <div class="fb" data-label="Key Design Features">
+        <ul style="padding-left: 1.5rem; color: var(--stone4); font-size: 0.95rem; line-height: 1.8;">
+          <li style="margin-bottom: 0.8rem;"><strong>Foot-Actuated Deployment:</strong> An aluminum foot-actuated handle allows users to deploy and retract the suction cup from a standing neutral position, meaning the broom handle can be retrieved from a height no lower than 1.04 m.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>High Force Resistance:</strong> The suction cup design can withstand a maximum applied horizontal force of 14.33 N, ensuring it remains upright when accidentally bumped.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Optimized Material:</strong> The suction cup is made of nitrile, chosen for its high physical durability, tensile strength, resistance to scratching surfaces, and lower density compared to silicon.</li>
+          <li><strong>Compact Footprint:</strong> The design minimally extends outward from the broomhead by approximately 3.34 cm to avoid compromising compactability, with a maximum width of 35.00 cm.</li>
+        </ul>
+      </div>
+
+    <div style="margin-top: 2.5rem;">
+        <div class="fb" data-label="Position Reflection" style="margin-bottom: 1.5rem;">
+          <p><strong>Applying the Position</strong></p>
+          <p>This project was one of my first times designing something for a community's needs. I learned that you can't just base an engineering design on what you personally like or assume will work. Instead, I had to collaborate with my team to actually prove which solution was the best fit. Going through the design process showed me the importance of working with a team to make design choices based on the Needs, Goals and Objectives (Figure 4) and concrete data rather than subjective opinions.</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="best.png" alt="Praxis I Position Reflection" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <div class="image-caption" style="text-align: center;">Figure 4: Needs, Goals and Objectives for the Broom Splartz</div>
+        </div>
+      </div>
+
+      <table style="margin-top:2rem;">
+        <caption>Table 1: Praxis I Team Members</caption>
+        <thead><tr><th>Team Member</th></tr></thead>
+        <tbody>
+          <tr><td>Jessica Torkos</td></tr>
+          <tr><td>Katie Di Gregorio</td></tr>
+          <tr><td>Alessandra Gaspari</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis I · CTMF 01</div>
+            <h3>Converging with the Perry Model and a Critical Metric</h3>
+          </div>
+          <span class="badge b-converge">Converge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="role-block">
+            <div class="rb-title">What is the Perry Model in Design?</div>
+            <p>The Perry Model is a framework for understanding cognitive development, which can be directly applied to how engineering teams evaluate ideas. In the Multiplicity stage, designers view all generated concepts as equally valid. However, effective convergence requires moving into Relativism, where solutions are judged by specific evidence and context, in order to reach a justified Commitment to a single design [1]. Identifying a critical metric early in this process is the key to shifting a team away from personal preference and toward an evidence-based final decision.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of the Critical Metric in the Design Process</div>
+            <p>During our convergence phase, my team compared four designs to determine which would best prevent Engineering Science students from having to bend down to pick up a fallen broom. We identified our most critical metric as the greatest lateral force the design could resist, as this ultimately determined if the broom would remain upright (the defining success factor of our splartz). By calculating the lateral force capacity—where our suction cup design withstood 14.33 N compared to others failing under 2.02 N—we were able to use tools like a Pugh Chart to holistically evaluate the designs and choose the suction cup.</p>
+            <div class="g2" style="margin-top:1.5rem;">
+                <div>
+                  <img src="critical1.png" alt="Metric Data Table" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 5: Metric Data Table Comparing Horizontal Force</div>
+                </div>
+                <div>
+                  <img src="critical2.png" alt="Evaluation Criteria Pugh Chart" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 6: Evaluation Criteria Pugh Chart</div>
+                </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of a Critical Metric Focus</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Evidence-Based Evaluation</div><p>Shifts the team's mindset from Multiplicity (all ideas are equal) to Relativism, allowing designs to be judged based on data rather than opinion.</p></div>
+              <div class="adv-card"><div class="adv-label">Clear Design Differentiation</div><p>Helps resolve conflicts when evaluating complex tools like Pugh Charts. Even if a design scores lower on secondary metrics (like retrieval steps), a strong critical metric clearly highlights the most viable option.</p></div>
+              <div class="adv-card"><div class="adv-label">Confident Commitment</div><p>Provides a clear, justified pathway to the final stage of the Perry Model, allowing the team to confidently commit to the design that best satisfies the core problem.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Late Identification</div><p>In this project, we recognized our critical metric only after narrowing our ideas down to four designs. Because it was identified late, we missed the opportunity to use it to filter or prioritize concepts right from the start.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Narrow Filtering</div><p>Relying too heavily on one metric to filter ideas requires certainty that the chosen metric is actually the most important one, which may result in accidentally eliminating designs that are stronger in overall usability.</p></div>
+            </div>
+          </div>
+          <div class="learning-box">
+            <div class="lb-title">Learning Outcome & Future Use</div>
+            <p>This analysis helped me bette understand how identifying a critical metric drives progress through the Perry Model. By recognizing lateral force capacity as the defining factor, my team shifted from treating all designs as equally valid to evaluating them through evidence-based criteria and committing to the suction cup design. Moving forward, I intend to identify my team’s critical metric much earlier in the process, specifically during Divergence. Establishing this criteria at the beginning of the Multiplicity stage will ensure it shapes our comparisons from the start, leading us to stronger, more justified final designs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis I · CTMF 02</div>
+            <h3>Diverging with the Lotus Blossom</h3>
+          </div>
+          <span class="badge b-diverge">Diverge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="role-block">
+            <div class="rb-title">What is the Lotus Blossom Technique?</div>
+            <p>The Lotus Blossom is a structured diverging tool designed to systematically expand a team's ideation capacity [2]. By placing a core functional theme at the center of a grid and expanding outward into interconnected sub-themes, it forces designers to generate a high volume of ideas. It deliberately shifts the focus away from immediate feasibility and instead prioritizes quantity and creative momentum, ensuring the design space is thoroughly explored.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of the Lotus Blossom in the Design Process</div>
+            <p>My team deployed the Lotus Blossom to generate a massive variety of concepts for our design opportunity. Starting with our central function, we systematically peeled back multiple layers to produce sixty-four distinct solutions. The progression was clear: our innermost layers yielded easy, highly feasible ideas—like a simple broom clip. However, as the grid forced us outward, we had to rely on increasingly creative thinking, eventually proposing unconventional solutions like a dedicated personal robot. Compared to other diverging techniques we tested, this structured expansion allowed us to generate the highest volume of ideas.</p>
+            
+            <div style="margin-top:2rem; text-align: center;">
+             <img src="lotus.png" alt="Lotus Blossom Chart" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+              <div class="image-caption">Figure 7: Lotus Blossom Chart showing progression from center outward</div>
+            </div>
+          </div>
+          
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of the Lotus Blossom</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Levels of Claims</div><p>The technique guided idea generation across different types of claims. Our initial, center-grid ideas were safer and more grounded, while our branching ideas were more speculative.</p></div>
+              <div class="adv-card"><div class="adv-label">Representing Ideas</div><p>This tool allowed us to express our ideas in writing and/or drawing form, allowing us to represent our ideas better.</p></div>
+              <div class="adv-card"><div class="adv-label">Vast Idea Generation</div><p>Because we could generate so many idea, we did not put much thought into each individual idea, allowing us to generate a large number of ideas.</p></div>
+            </div>
+          </div>
+          
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">The Risk of Poor Scoping</div><p>A tool that generates sixty-four ideas is only useful if those ideas are aimed at the right target. If the design space is not properly defined beforehand, the Lotus Blossom can result in a massive waste of time generating solutions for the wrong problem.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Quality vs. Quantity Control</div><p>While generating a massive quantity of ideas provides excellent raw material for convergence, it can also create an overwhelming evaluation phase if the initial central themes are not tightly aligned with the project's core functions.</p></div>
+            </div>
+          </div>
+          
+          <div class="learning-box">
+            <div class="lb-title">Learning Outcome & Future Use</div>
+            <p>Analyzing this experience through the lens of claim types proved to me that diverging tools are essential for opening the design space, rather than prematurely limiting it to predictable outcomes. In future design work, I will prioritize rigorous scoping and ensure our core opportunity is well defined before deploying the Lotus Blossom.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis I · CTMF 03</div>
+            <h3>Framing with Codes and Standards</h3>
+          </div>
+          <span class="badge b-frame">Frame</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="role-block">
+            <div class="rb-title">What are Codes and Standards?</div>
+            <p>In engineering design, codes and standards are formalized guidelines that establish minimum performance, safety, and quality thresholds [2]. While codes are legally binding rules adopted by governments, standards are technical practices developed by industry professionals. Rather than relying on assumptions or subjective opinions to determine what makes a design safe or functional, engineers use these documents to ensure safety, efficiency, and reliability. In my practice, I collaborate with the greater engineering community by using codes and standards to ground my designs in established human safety metrics rather than personal guesswork.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Codes and Standards in the Design Process</div>
+            <p>During the framing of our Praxis I project, my team used codes and standards to define the requirements for our broom-retrieval opportunity. Instead of subjectively guessing what design parameters would be acceptable, we used these guidelines to establish objective thresholds.</p>
+            <p>For example, we referenced ISO 11228-3:2007 (Ergonomics) [3] to establish that the repetitive motion of bending down to pick up a broom causes quantifiable pain, directly justifying our core objective to mitigate this motion. When defining our constraints, we avoided choosing arbitrary values and instead used ISO 24533:2023 [4] to cap the broom attachment's mass at 0.7 kg, as this standard explicitly defines the threshold for lifting comfort for individuals aged 20-39. Finally, rather than inventing our own subjective safety evaluations, we adopted the UL 1439 Sharp Edge Test [5] to provide a standardized, industry-recognized method for evaluating the safety of our product's edges. By utilizing these standards to address our stakeholder needs, we created a set of requirements that were grounded in reality and proven safety data.</p>
+            
+            <div class="g2" style="margin-top:1.5rem;">
+                <div>
+                  <img src="code1.png" alt="Snapshot of the Standard Document" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 8: Relevant Code/Standard Extract</div>
+                </div>
+                <div>
+                  <img src="code2.png" alt="Snapshot of Requirements Table" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 9: Requirements Table Highlighting Standard Citations</div>
+                </div>
+            </div>
+          </div>
+          
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Using Codes for Framing</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Objective Grounding</div><p>Shifts requirement generation from subjective guesses to established industry baselines, providing immediate, objective justification for our design constraints.</p></div>
+              <div class="adv-card"><div class="adv-label">Community Safety</div><p>Standards represent the collective, pressure-tested knowledge of past engineers. Using them ensures the design protects the end-users by relying on the wisdom of the broader engineering network.</p></div>
+              <div class="adv-card"><div class="adv-label">Clear Boundaries</div><p>Defines the non-negotiable edges of the design space early on. This actually aids the Diverge phase, as we know exactly what constraints our "crazy" ideas must eventually fit within.</p></div>
+            </div>
+          </div>
+          
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Navigational Complexity</div><p>Codes and standards are often dense and technical. To extract the metrics or practice, it took significant time to navigate the documents and accurately interpret the language.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Risk of Misinterpretation</div><p>If codes and standards are not fully understood, they may be misapplied, leading to requirements that are either irrelevant or technically inaccurate for the specific project context.</p></div>
+            </div>
+          </div>
+          
+          <div class="learning-box">
+            <div class="lb-title">Learning Outcome & Future Use</div>
+            <p>Using codes and standards to frame my project’s requirements taught me the importance of grounding objectives in established practices and guidelines to ensure design safety and reliability. In future design work, I will prioritize researching relevant codes and standards at the beginning of the Frame phase to justify my requirements. Since reading these documents can be dense, I recommend seeking support if needed to make sure that they are accurately interpreted and applied to your project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>UofT EngSci Praxis II · Jessica · 2026</footer>
+</div>
+   
+<div id="p2" class="page">
+  <div class="proj-banner">
+    <div class="tag">Project 02 · CIV102 · Fall 2025</div>
+    <h1>CIV102 Bridge Project</h1>
+  </div>
+  <div class="wrap">
+    <div class="section">
+      <div class="sh"><span class="sh-num">3.1</span><h2>Project Summary</h2></div>
+      
+      <div class="g2">
+        <div class="fb" data-label="The Opportunity">
+          <p>The goal of this project was to iteratively design and construct a matboard bridge capable of maximizing load capacity while adhering to strict material and dimensional constraints. Starting from a base "Design 0" model, our team had to balance theoretical strength calculations with physical construction limits to optimize the bridge's cross-section [7].</p>
+        </div>
+        <div class="fb" data-label="The Solution">
+          <p>We designed a simple beam bridge with a T-shaped cross-section. To conserve material while maximizing structural integrity, we minimized the length to 1260 mm (the shortest allowed by the testing apparatus) and maximized the height to 140 mm. The bridge features a top width of 100 mm, a bottom width of 50 mm, and a splice located at the 280 mm mark to minimize shear force and bending moments at the beam's weakest point.</p>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-bottom: 2.5rem;">
+          <div style="text-align: center;">
+              <img src="bridge.png" alt="CIV102 Bridge Design" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+              <div class="image-caption" style="text-align: center;">Figure 10: Matboard Bridge Design</div>
+          </div>
+          <div style="text-align: center;">
+              <img src="teambridge.png" alt="Broken Bridge After Testing Load" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+              <div class="image-caption" style="text-align: center;">Figure 11: Broken Team Bridge</div>
+          </div>
+      </div>
+
+      <div class="fb" data-label="Key Design Features">
+        <ul style="padding-left: 1.5rem; color: var(--stone4); font-size: 0.95rem; line-height: 1.8;">
+          <li style="margin-bottom: 0.8rem;"><strong>Double-Layered Top Flange:</strong> Added a second matboard layer to increase the second moment of area, significantly improving resistance to compression and local buckling.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Maximized Web Height:</strong> Extended the webs to 60 mm (140 mm total height) to drastically boost overall compressive strength.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Reinforced Glue Tabs:</strong> Widened all glue tabs to 10 mm to provide a safety margin against shear stress and imperfect glue strength.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Dense Diaphragm Spacing:</strong> Placed eleven internal diaphragms closely together (every 105 mm) to combat shear buckling in the webs.</li>
+          <li><strong>Adaptive Sizing:</strong> Shrunk the bottom width to 50 mm during construction to salvage a cutting error without wasting material or compromising the overall height.</li>
+        </ul>
+      </div>
+
+      <div class="g2" style="align-items: start; margin-top: 2.5rem;">
+        <div class="fb" data-label="Position Reflection" style="margin-bottom: 0;">
+          <p><strong>The Gap Between Theory and Reality</strong></p>
+          <p>Going into this project, I thought that the theoretical calculations would be able to accurately model our bridge design. Using the code, my team projected that our bridge would withstand a load of 1253 N; however, the bridge failed at just 133 N.</p>
+          <p>This unexpected capacity shifted my perspective on engineering design. I realized that calculations and code assume perfect conditions, such as flawless matboard assembly. Our code itself made several assumptions, such as neglecting the mass of the glue. In reality, these ideal conditions cannot always be met.</p>
+          <p>This experience taught me that designs rarely translate perfectly to real-life conditions. As an engineer, you have to account for human error and the tolerances between ideal math and physical reality.</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="testingbridge.png" alt="CIV102 Position Reflection" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <div class="image-caption" style="text-align: center;">Figure 12: Theory vs. Reality Testing</div>
+        </div>
+      </div>
+
+      <table style="margin-top:2rem;">
+        <caption>Table 2: CIV102 Team Members</caption>
+        <thead><tr><th>Team Member</th></tr></thead>
+        <tbody>
+          <tr><td>Jessica</td></tr>
+          <tr><td>Tamar Stutz</td></tr>
+          <tr><td>Riya Prajapati</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">CIV102 · CTMF 04</div>
+            <h3>Representing with Iterative Engineering Drawings</h3>
+          </div>
+          <span class="badge b-represent">Represent</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What are Engineering Drawings?</div>
+            <p>Engineering drawings are accurate visualizations of a design’s geometry, dimensions, and aesthetics [8]. In my experience, they are not just a final depiction of a design, but can be used as an iterative tool to represent progress. These drawings also ensure a shared understanding of an idea among teammates and instructors.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Iterative Drawing in the Design Process</div>
+            <p>My team used drawings of our design iterations to develop and refine our final bridge design. We created seven iterations, updating parameters such as web height, flange layering, and diaphragm spacing in every new drawing. They also served as documentations of our design process, allowing us to review what worked and what didn’t.</p>
+            <div class="g2" style="margin-top:1.5rem;">
+              <div style="text-align: center;">
+                  <img src="design1.png" alt="Version 1 Initial Drawing" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 13: Version 1 Initial Drawing</div>
+              </div>
+              <div style="text-align: center;">
+                  <img src="design2.png" alt="Final Iteration Drawing" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 14: Final Iteration Drawing</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Iterative Representation</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Design History</div><p>With each iteration, creating a sketch allowed us to document our design history and keep track of our process.</p></div>
+              <div class="adv-card"><div class="adv-label">Zero-Cost Failures</div><p>By doing seven iterations of drawings rather than seven physical cardboard prototypes, we conserved our limited building materials and time, ensuring our physical build phase was highly efficient.</p></div>
+              <div class="adv-card"><div class="adv-label">Shared Understanding</div><p>Whenever the design changed, the new drawing ensured every team member immediately understood the updated geometry, preventing miscommunication.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Partial Visualization</div><p>In our drawing iterations, we focused only on the cross-section of the design rather than mapping out the entire bridge. While this helped us optimize the internal geometry, it made it difficult to fully understand and visualize the bridge's behavior in 3D space. In the future, I will ensure we create a complete drawing of the final design before moving to construction.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">The Material Constraint Blind Spot</div><p>Our engineering drawings focused on optimizing the bridge for force, but they did not account for our physical material limits (the total amount of matboard we were allowed to use). In the future, I aim to pair the drafting process with running simultaneous material-area calculations to ensure the drawn geometry is actually viable within our physical constraints.</p></div>
+            </div>
+          </div>
+          <div class="learning-box"><div class="lb-title">Learning Outcome & Future Use</div><p>Using drawings to represent our design iterations throughout the bridge project reinforced the importance of documenting the design process. They also proved to be a vital tool for clear communication among team members. In the future, I plan to continue using drawings to iteratively develop my designs, while ensuring I implement the material and visualization considerations outlined in my limitations.</p></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">CIV102 · CTMF 05</div>
+            <h3>Diverging with Reference Designs</h3>
+          </div>
+          <span class="badge b-diverge">Diverge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What are Reference Designs?</div>
+            <p>In engineering design, reference designs are existing solutions created by other engineers [2]. When faced with a problem outside our current knowledge, we can study and take inspiration from structures that have already been successfully built and tested to generate ideas, rather than trying to invent a new mechanism from scratch.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Reference Designs in the Design Process</div>
+            <p>During the Diverge phase of our project, my team used reference designs to overcome a knowledge gap regarding our material constraints. Because our matboard was of limited length, we had to cut and splice the pieces together. However, we were not taught the structural mechanics of where a splice should safely be located on a bridge.</p>
+            <p>Rather than guessing where to position the joints, we researched existing bridge designs. We discovered that splices are typically located at points of minimum shear force and bending moments, so we positioned our own splices one-quarter of the way along the edges of the bridge. By modeling our work after these reference designs, we were able to generate optimal solutions based on evidence rather than guessing.</p>
+            
+            <div style="margin-top:1.5rem; text-align: center;">
+              <img src="splice.png" alt="Bridge Splice Location Reference" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+              <div class="image-caption">Figure 15: Bridge Splice Location Reference</div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Reference Designs</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Overcoming Knowledge Gaps</div><p>Looking at existing designs provided an immediate path forward when we reached the limits of what was taught in class.</p></div>
+              <div class="adv-card"><div class="adv-label">Proven Strategies</div><p>By mimicking real-world splices, we adapted a structural solution that was already proven safe in reality.</p></div>
+              <div class="adv-card"><div class="adv-label">Efficient Ideation</div><p>Researching references gave us a direct list of joining methods to choose from, which sped up our design process.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Scaling Differences</div><p>A solution that works for a specific bridge might not scale down perfectly to a matboard bridge. Reference designs should be used in the context of the project and within its constraints.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Context Blind Spots</div><p>Relying heavily on reference designs can sometimes cause a team to overlook the unique environmental or physical constraints of their specific project.</p></div>
+            </div>
+          </div>
+          <div class="learning-box">
+            <div class="lb-title">Learning Outcome & Future Use</div>
+            <p>Using reference designs taught me that university classes will not teach me every single detail I need to complete a project. I learned that when I do not know an answer, I can actively research how others have solved similar problems. In my future design work, whenever my team hits a technical wall, I plan to use precedent research to discover existing solutions before attempting to invent a completely new one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">CIV102 · CTMF 06</div>
+            <h3>Converging with Mathematical Modeling</h3>
+          </div>
+          <span class="badge b-converge">Converge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What is Mathematical Modeling?</div>
+            <p>In engineering design, mathematical modeling involves using computer code to calculate how a design will behave under physical loads. Instead of manually calculating the math for every single idea, engineers write scripts to automate the process. This allows a team to rapidly analyze data and objectively compare multiple design iterations to find the best possible solution.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Mathematical Modeling in the Design Process</div>
+            <p>During the Converge phase of our CIV102 bridge project, my team wrote code on MATLAB to mathematically represent our designs. Having code allowed my team to efficiently calculate the stresses for each cross-sectional design iteration.</p>
+            <p>We wrote a script to calculate the Factor of Safety (FOS) for maximum tension, compression, shear force, and the four buckling cases. Our primary method of converging was comparing our design iterations based on which one could withstand the highest forces. By using this code to evaluate our options, we were able to confidently converge on the most optimal, structurally sound design.</p>
+            <div class="g2" style="margin-top:1.5rem;">
+              <div style="text-align: center;">
+                  <img src="code.png" alt="Mathematical Modeling Script" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 16: Mathematical Modeling Code</div>
+              </div>
+              <div style="text-align: center;">
+                  <img src="design.png" alt="Evaluated Design Iteration" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 17: Evaluated Design Iteration</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Mathematical Modeling</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Rapid Comparison</div><p>Automating the math allowed us to test and compare dozens of cross-section variations in seconds, rather than spending hours calculating each one by hand.</p></div>
+              <div class="adv-card"><div class="adv-label">Objective Decisions</div><p>It removed subjectivity from the convergence process. We chose our final design because the code objectively proved it could withstand the highest forces.</p></div>
+              <div class="adv-card"><div class="adv-label">Error Reduction</div><p>Once the formulas were correctly programmed into the script, we eliminated the risk of making simple arithmetic mistakes during repeated calculations.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Dependence on Theoretical Math</div><p>The code is only as accurate as the formulas we program into it. If our fundamental equations or assumptions about how the bridge behaves under a load were flawed, the code would confidently give us incorrect FOS values.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Ignoring Physical Flaws</div><p>The mathematical model assumes the building material is perfectly uniform. The code cannot account for physical construction defects, such as uneven glue application, which can cause the physical bridge to fail at a lower weight than the code predicts.</p></div>
+            </div>
+          </div>
+          <div class="learning-box"><div class="lb-title">Learning Outcome & Future Use</div><p>Using code to represent and test our design taught me that programming is a highly effective tool for convergence. I learned that automating repetitive calculations allows a team to objectively compare iterations and clearly identify which design is the strongest. In my future design work, I plan to continue using code to mathematically model my ideas so I can make data-driven decisions when selecting a final concept.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>UofT EngSci Praxis II · Jessica · 2026</footer>
+</div>
+
+<div id="p3" class="page">
+  <div class="proj-banner">
+    <div class="tag">Project 03 · ESC102 · Winter 2026</div>
+    <h1>Praxis II Project</h1>
+  </div>
+  <div class="wrap">
+    <div class="section">
+      <div class="sh"><span class="sh-num">4.1</span><h2>Project Summary</h2></div>
+      
+      <div class="g2">
+        <div class="fb" data-label="The Opportunity">
+          <p><strong>Optimizing Resistance Training for Athletes</strong></p>
+          <p>The High Performance Team of the Mississauga Aquatic Club relies on resistance training equipment to slow swimmers down in the water, building critical strength and endurance. However, current market designs are severely limited: they offer restricted resistance levels, are bulky to transport, and often interfere with a swimmer's natural movement. The community required an innovative solution prioritizing adjustable resistance, portability, and unobstructed swimming mechanics.</p>
+        </div>
+        <div class="fb" data-label="The Solution">
+          <p><strong>The Shark Pouch</strong></p>
+          <p>Our team designed the Shark Pouch, a flexible, drag-inducing pouch that attaches to a swimmer's abdomen via an adjustable waist belt and a carabiner. As water flows into the pouch's opening, it imposes a drag force on the swimmer. By simply adjusting a drawstring, the user changes the size of the opening—altering the frontal surface area—which directly and predictably controls the drag force applied.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+          <img src="slide.png" alt="Shark Pouch Project Overview Slide" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <div class="image-caption" style="text-align: center;">Figure 18: Shark Pouch Project Overview</div>
+      </div>
+
+      <div class="fb" data-label="Key Design Features">
+        <ul style="padding-left: 1.5rem; color: var(--stone4); font-size: 0.95rem; line-height: 1.8;">
+          <li style="margin-bottom: 0.8rem;"><strong>Continuous Adjustability:</strong> The drawstring mechanism allows for infinitely small increments of resistance up to 210N at a maximum opening diameter of approximately 33cm. Based on initial calculations, a 0.172m diameter yields 54.4N of drag, while expanding to a 0.293m diameter produces 158N.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Ergonomic & Unobtrusive:</strong> Utilizing a waist belt instead of a traditional full-body harness provides athletes with total freedom of movement. The short carabiner connection ensures the pouch trails closely, preventing any interference with kicks or arm strokes.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Sustainable & Durable Material:</strong> Engineered using recycled PET (rPET), the pouch is environmentally sustainable, highly chlorine-resistant, and possesses the necessary rigidity to stay open underwater.</li>
+          <li style="margin-bottom: 0.8rem;"><strong>Compact Storage:</strong> The flexible nature of the rPET allows the entire pouch to be folded and compressed. The waist belt can be conveniently tucked directly inside the pouch for easy transport in a swim bag.</li>
+          <li><strong>Creative Aesthetics:</strong> Designed to look like a shark, the pouch adds a creative, engaging element to grueling training sessions, acting as a fun "swimming buddy" for the user.</li>
+        </ul>
+      </div>
+
+      <div class="g2" style="align-items: start; margin-top: 2.5rem;">
+        <div class="fb" data-label="Position Reflection" style="margin-bottom: 0;">
+          <p><strong>The Village of Teamwork</strong></p>
+          <p>This project shifted how I approach team design. I used to treat engineering challenges as solo mountains to climb, but working with a team to create the Shark Pouch taught me the power of the "Village of Teamwork." Our group operated as a Team B—casual and comfortable with one another [2]. We made sure to spend time together outside of the project, bonding over hot pot and games. Because we took the time to build that trust, everyone felt valued. We felt more inclined to share those “silly” ideas and felt more personally invested in the project. Additionally, because we actually knew each other well, we could naturally divide tasks based on our strengths and interests. This experience showed me that being a good engineer isn't just about working in a group; it's about creating a team culture where everyone feels comfortable to bring their most creative self.</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="team.png" alt="Praxis II Design Team" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <div class="image-caption" style="text-align: center;">Figure 19: Praxis II Design Team</div>
+        </div>
+      </div>
+
+      <table style="margin-top:2rem;">
+        <caption>Table 3: Praxis II Team Members</caption>
+        <thead><tr><th>Team Member</th></tr></thead>
+        <tbody>
+          <tr><td>Jessica Torkos</td></tr>
+          <tr><td>Andy Gu</td></tr>
+          <tr><td>Arthur Chen</td></tr>
+          <tr><td>Florine Han</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis II · CTMF 07</div>
+            <h3>Diverging with Biomimicry</h3>
+          </div>
+          <span class="badge b-diverge">Diverge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What is Biomimicry?</div>
+            <p>Biomimicry in design is the practice of taking inspiration from nature’s structures, processes, and systems to solve human problems. The principles of how organisms and ecosystems have evolved to function efficiently and sustainably can be extracted to create innovative products, processes and solutions. This approach often leads to solutions that are more energy-efficient, resilient, and environmentally friendly [9].</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Biomimicry in the Design Process</div>
+            <p>During the divergence phase of our Praxis II project, my team applied biomimicry to expand our design space for a swimming resistance device. We studied the physical structures of animals and how they move efficiently through water and translated these biological strategies into directions for our device. Two biological systems had a key influence on our final concept including a shark and a kangaroo pouch.</p>
+            <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem; color: var(--stone4);">
+                <li><strong>Shark Structure and Drag Mechanics:</strong> We modeled the exterior of our device to resemble a shark, including a shark mouth as the pouch opening and a tail at the end with fins along the side, to make swimming with it more fun. Additionally, we mimicked their biological drag mechanism: just as a real shark experiences increased drag when it opens its mouth to feed, our device utilizes an expanding "mouth" to capture water and create functional resistance.</li>
+                <li><strong>Slipstream Positioning (Baby Shark):</strong> Observing how baby sharks swim tucked closely beneath their mothers for guidance and fluid dynamics, we designed our device to be positioned securely under the swimmer.</li>
+                <li><strong>Dynamic Expansion (Kangaroo Pouch):</strong> To ensure the device was unobtrusive when not in use, we drew inspiration from the kangaroo pouch. Like a kangaroo's pouch, which sits flush against the lower abdomen but expands outward when the joey enters, our device was designed to sit on the swimmer's abdomen and dynamically expand to capture water.</li>
+            </ul>
+            <div class="g2" style="margin-top:1.5rem;">
+              <div style="text-align: center;">
+                  <img src="shark.png" alt="Shark Biomimicry Reference" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 20: Shark Biomimicry Reference</div>
+              </div>
+              <div style="text-align: center;">
+                  <img src="kangeroo.png" alt="Kangaroo Biomimicry Reference" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption" style="text-align: center;">Figure 21: Kangaroo Biomimicry Reference</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Biomimicry</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Merging Form with Function</div><p>This framework allowed us to design a device that was not only mechanically effective but also visually engaging. By mimicking a shark, we created a fun, user-friendly aesthetic while simultaneously utilizing its biological mechanics (the open mouth) to solve our core engineering requirement of creating drag.</p></div>
+              <div class="adv-card"><div class="adv-label">Ergonomic Positioning</div><p>Looking at nature solved our placement constraints. By studying the natural, protected location of a kangaroo's pouch and the underbelly positioning of a baby shark, we identified the swimmer's lower abdomen as the optimal location to attach the resistance device without impeding their natural arm and leg strokes.</p></div>
+              <div class="adv-card"><div class="adv-label">Broad Ideation Space</div><p>Biomimicry pushed my team to generate creative, unconventional solutions that a standard brainstorming session would have missed.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">Complexity</div><p>It can be complex and difficult to implement biomimicry since natural systems are intricate and not always easy to replicate accurately in human designs.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Evolution vs. Optimal Efficiency</div><p>Nature does not always prioritize efficiency since evolution favours what works for survival in a given environment rather than what is most optimal, which can limit its effectiveness as a design influence.</p></div>
+            </div>
+          </div>
+          <div class="learning-box"><div class="lb-title">Learning Outcome & Future Use</div><p>Using biomimicry has taught me that engineers can extract ideas from nature rather than invent everything from scratch. It made me consider how natural systems have evolved for efficiency and how I can incorporate these strategies into design. By recognizing that nature has already solved complex structural and environmental challenges, my team was able to generate ideas inspired by these biological solutions. In future projects, I will use biomimicry early in the divergence phase to help create more unconventional ideas. Moving forward, I recommend using this tool alongside others to generate a wide variety of concepts.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis II · CTMF 08</div>
+            <h3>Reframing with the Morphological Chart</h3>
+          </div>
+          <span class="badge b-converge">Converge</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What is a Morphological Chart?</div>
+            <p>A Morphological Chart (Morph Chart) is a systematic tool used to break down a complex design problem into its essential sub-functions. It works by mapping out the core functions of a design opportunity alongside a list of possible solutions or methods to achieve each one. By combining one option from each defined function, designers can generate a massive variety of novel, complete concepts that fully address the opportunity [10].</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of the Morphological Chart in the Design Process</div>
+            <p>While the Morph Chart is typically used in the initial divergence stage of a design process, my team benefited most from it during testing and reframing.</p>
+            <p>When testing an early iteration of our shark design, we realized it did not fully address our opportunity's requirements or overcome the limitations of existing reference designs. Specifically, our design featured a tether cord trailing behind the swimmer, which actively interfered with their natural kicking motion. To address this challenge, my team needed to reframe our approach. Instead of scrapping our entire concept and starting from scratch, we returned to our Morph Chart. By isolating the "attachment method" function within our chart, we were able to systematically evaluate alternative locations without losing the core "shark pouch" aesthetic. This structured re-evaluation directly led us to pivot our attachment point to the lower abdomen, saving the design.</p>
+            
+            <div class="g2" style="margin-top:1.5rem;">
+              <div style="text-align: center;">
+                  <img src="morph1.jpg" alt="Morphological Chart View 1" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 22: Morphological Chart</div>
+              </div>
+              <div style="text-align: center;">
+                  <img src="morph2.png" alt="Morphological Chart View 2" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <div class="image-caption">Figure 23: Design Iteration Process [2]</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of the Morphological Chart</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Targeted Problem-Solving</div><p>Instead of throwing away an entire concept because a single feature failed, the Morph Chart allowed us to isolate the specific broken variable (the attachment method). We were able to pivot just that single function while preserving the successful elements of our shark design, saving immense time and effort.</p></div>
+              <div class="adv-card"><div class="adv-label">Breaking Design Fixation</div><p>When a test fails, it’s easy to get stuck trying to make the original idea work—like we did with the tether cord. Going back to the chart made us step back and consider completely different options, instead of getting stuck on our first idea.</p></div>
+              <div class="adv-card"><div class="adv-label">Rapid, Systematic Pivot</div><p>Since we had already broken the problem into parts, we didn’t have to start from scratch, and we could just try new combinations of solutions to quickly come up with a better concept.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">The "Band-Aid" Risk</div><p>While the chart is excellent for isolating and fixing a single failing variable, there is a risk of using it as a "Band-Aid." If the core concept is fundamentally flawed, swapping out one sub-solution on the matrix might just delay the inevitable need to start over entirely.</p></div>
+              <div class="lim-item"><div class="lim-num">Limitation 2</div><div class="lim-title">Ignoring Interdependencies</div><p>The Morph Chart treats each function as an independent variable, which can be dangerous during iteration. In reality, physical systems are highly interconnected. Swapping our attachment point to the lower abdomen might solve the kicking interference, but we had to consider the effect of this change on the rest of our design system.</p></div>
+            </div>
+          </div>
+          <div class="learning-box"><div class="lb-title">Learning Outcome & Future Use</div><p>My experience using the Morph Chart taught me that engineering tools do not necessarily need to be used exactly as intended. A framework meant for early brainstorming can actually become a powerful way to reframe a problem much later in the process. I also learned that when a prototype fails, you can isolate and change specific aspects of your design instead of throwing the concept away completely. In my future design work, I will make sure my team creates a Morph Chart near the beginning of our design process. This way, we will have a built-in menu of alternative solutions that is easy to refer back to if we need to pivot.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="ctmf-wrap">
+        <div class="ctmf-header">
+          <div class="ctmf-header-left">
+            <div class="ctmf-num">Praxis II · CTMF 09</div>
+            <h3>Progressive Fidelity Prototyping</h3>
+          </div>
+          <span class="badge b-represent">Represent</span>
+        </div>
+        <div class="ctmf-body">
+          <div class="what-is">
+            <div class="wh-title">What is Progressive Fidelity Prototyping?</div>
+            <p>In engineering design, representing an idea as a final prototype requires a journey of multiple steps. Progressive fidelity prototyping is where a design is translated into increasingly higher-fidelity and more complex models [11]. The first prototypes are typically used to test basic concepts while gradually moving towards better, to-scale models.</p>
+          </div>
+          <div class="role-block">
+            <div class="rb-title">The Role of Progressive Fidelity in the Design Process</div>
+            <p>During the Represent phase of our Praxis II project, my team used progressive fidelity prototyping to systematically develop our biomimetic shark pouch design. Rather than jumping straight to a final build, we used a series of increasingly complex models to learn, adapt, and answer specific engineering questions at each stage:</p>
+            <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem; color: var(--stone4);">
+                <li><strong>Drawings:</strong> We began with low-fidelity sketches to rapidly visualize the initial concept and brainstorm alternative iterations before committing to any physical materials.</li>
+                <li><strong>Low-Fidelity 3D Model:</strong> We quickly constructed a physical mockup using pipe cleaners and an eggshell, allowing us to translate the 2D concept into 3D space and ensuring the entire team shared a unified understanding of the physical geometry.</li>
+                <li><strong>Proxy-Testing (Shopping Bag):</strong> We used a standard shopping bag as a functional proxy to quickly and cheaply test our core mechanism in the pool. This confirmed our hypothesis that an expanding, mouth-like opening could effectively capture water and induce a drag force.</li>
+                <li><strong>CAD Modeling:</strong> Once the basic mechanics were validated, we created a CAD model to represent precise dimensions, material requirements, and spatial relationships at zero physical material cost.</li>
+                <li><strong>Sub-Scale Functional Prototype:</strong> We then built an integrated functional prototype. Testing this in a swimming pool allowed us to evaluate how the majority of the physical components interacted together dynamically under water pressure.</li>
+                <li><strong>To-Scale Prototype:</strong> Finally, we created a full, to-scale physical prototype to accurately represent the complete dimensions, aesthetics, and ergonomic design features of our final concept.</li>
+            </ul>
+            
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid1.jpg" alt="Fidelity Level 1" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 24: Drawings</div>
+              </div>
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid2.jpg" alt="Fidelity Level 2" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 25: Low-Fidelity 3D Model</div>
+              </div>
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid3.png" alt="Fidelity Level 3" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 26: Proxy-Testing</div>
+              </div>
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid.png" alt="Fidelity Level 4" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 27: CAD Modeling</div>
+              </div>
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid5.jpg" alt="Fidelity Level 5" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 28: Sub-Scale Prototype</div>
+              </div>
+              
+              <div style="text-align: center; display: flex; flex-direction: column;">
+                  <img src="fid6.jpg" alt="Fidelity Level 6" style="width: 100%; height: 240px; object-fit: cover; object-position: center; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: auto;">
+                  <div class="image-caption" style="margin-top: 1rem;">Figure 29: To-Scale Prototype</div>
+              </div>
+              
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Advantages of Progressive Representation</p>
+            <div class="adv-grid">
+              <div class="adv-card"><div class="adv-label">Failing Fast and Cheap</div><p>By starting with drawings and egg proxy tests, we were able to iterate on our ideas in minutes and prevent wasting money on materials.</p></div>
+              <div class="adv-card"><div class="adv-label">Targeted Feedback</div><p>Each level of fidelity allowed us to answer a different engineering question. Drawings answered "what does it look like?", CAD answered "what are the dimensions?", and the functional prototype answered "does the drag mechanism actually work?"</p></div>
+              <div class="adv-card"><div class="adv-label">Design Communication</div><p>The features of our design were difficult to explain with words alone. Having physical and digital models at every stage allowed us to clearly communicate our ideas with one another.</p></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone3);margin-bottom:1rem; font-weight:500;">Limitations & Future Considerations</p>
+            <div class="lim-list">
+              <div class="lim-item"><div class="lim-num">Limitation 1</div><div class="lim-title">The "Proxy Gap"</div><p>While proxy testing is incredibly efficient, an egg is not a perfect simulation of the complex hydrodynamic forces of a human swimming. Relying too heavily on a proxy test can give a team a false sense of security if the physics do not scale perfectly to the real-world environment.</p></div>
+             </div>
+          </div>
+          <div class="learning-box"><div class="lb-title">Learning Outcome & Future Use</div><p>My experience using progressive prototypes taught me that representation is not just about making a design look good at the end of a project, but it is an active tool for testing and iteration. I learned that you shouldn't build a high-fidelity model to test a low-fidelity assumption. In my future design work, I will intentionally step through these fidelities rather than rushing to build a full-scale model immediately. I will use quick sketches and proxy tests to validate my core ideas early, ensuring that when I finally invest the time and resources into a to-scale prototype, the foundational engineering is already proven.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>UofT EngSci Praxis II · Jessica · 2026</footer>
+</div>
+
+<div id="refs" class="page">
+  <div class="hero" style="padding:90px 0 60px;">
+    <div class="hero-tag">ESC102 · Design Portfolio</div>
+    <h1>References</h1>
+  </div>
+  <div class="wrap">
+    <div class="section">
+      <div class="sh"><span class="sh-num">05</span><h2>Reference List</h2></div>
+      <div class="fb" data-label="References">
+        <div class="ref-item">[1] D. Barker. (2016). "Perry’s Model of Cognitive Development during the College Years." Learning and Teaching Community. https://learningandteaching.byui.edu/editions/fall-2011/perspective-magazine/perrys-model-of-cognitive-development-during-the (accessed Apr. 10, 2026).</div>
+        <div class="ref-item">[2] Lofgreen, J., &amp; Carrick, R. (2025). <em>Praxis I</em> [Lecture course materials]. University of Toronto.</div>
+        <div class="ref-item">[3] Ergonomics - Manual handling - Part 3: Handling of low loads at high frequency, ISO 11228-3:2007, International Organization for Standardization, Switzerland, Nov. 2009.</div>
+        <div class="ref-item">[4] Ergonomics – Accessible design – Ease of operation, ISO 24553:2023, International Organization for Standardization, Switzerland, Feb. 2023.</div>
+        <div class="ref-item">[5] “Standard for Tests for Sharpness of Edges on Equipment.” UL 1439 Compliance. Accessed: Oct. 11, 2025. [Online] Available: https://ul1439.com/</div>
+        <div class="ref-item">[6] Lofgreen, J., &amp; Carrick, R. (2026). <em>Praxis II</em> [Lecture course materials]. University of Toronto.</div>
+        <div class="ref-item">[7] Benz, E. (2025). <em>CIV102: Structures and materials</em> [Course notes]. University of Toronto.</div>
+        <div class="ref-item">[8] Make UK. (2022). <em>How to read engineering drawings: A simple guide.</em> https://www.makeuk.org/insights/blogs/how-to-read-engineering-drawings-a-simple-guide</div>
+        <div class="ref-item">[9] Biomimicry Institute. (2021). <em>What is biomimicry?</em> Biomimicry.org. https://biomimicry.org/inspiration/what-is-biomimicry/</div>
+        <div class="ref-item">[10] Cornell University. (n.d.). <em>Morphological chart – deeper dive.</em> Applied Research Lab. Retrieved April 10, 2026, from https://arl.human.cornell.edu/PAGES_Delft/Morpholigical_Chart-deeper</div>
+        <div class="ref-item">[11] Google, "Gemini," version 3.1 Pro. [Large language model]. Available: https://gemini.google.com. (Accessed: Apr. 10, 2026).</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sh"><span class="sh-num">06</span><h2>AI Acknowledgment</h2></div>
+      <div class="fb" data-label="Code Generation">
+        <p>Generative AI was used in the creation of this portfolio. Specifically, Gemini 3.1 Pro was used to to generate the HTML code required to build and structure the format of this website.</p>
+      </div>
+    </div>
+  </div>
+  <footer>UofT EngSci Praxis II · Jessica · 2026</footer>
+</div>
+
+<script>
+function showPage(id) {
+  // 1. Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  
+  // 2. Remove active highlight from all navigation buttons
+  document.querySelectorAll('.topnav-pages button').forEach(b => b.classList.remove('active'));
+  
+  // 3. Show the targeted page
+  document.getElementById(id).classList.add('active');
+  
+  // 4. Highlight the correct navigation button
+  const activeBtn = document.querySelector(`.topnav-pages button[onclick="showPage('${id}')"]`);
+  if (activeBtn) {
+      activeBtn.classList.add('active');
+  }
+  
+  // 5. Scroll back to the top of the page
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
